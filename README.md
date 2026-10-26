@@ -8,7 +8,13 @@ A web app that helps families in Colorado find adaptive sports programs by **age
 
 ## Why we built this
 
-_(Write this part yourselves, in your own words: what you've seen in karate, who you've trained with, and what problem you noticed.)_
+We’re Ronan and Toby, and we both train in karate. Ronan competes on Team USA Karate, and we both train at Okinawa Dojo by Karate Bros. Karate has taught us that anyone can train if the practice is adapted to them. At competitions, we have watched para-karate athletes compete and persevere through their challenges. Watching them, we realized that what matters most is finding a coach and a program willing to adapt.
+
+Then we noticed a problem. We noticed that there are no kids at our dojo with disabilities. We started looking ourselves and found that adaptive sports programs in Colorado exist, but the information is scattered across dozens of websites. Many don’t list ages or prices, and some pages are years out of date. A family who’s already busy shouldn’t have to become researchers just to find a place for their kid to play.
+
+So we built Access to Play: one place to search by age, location, sport, accessibility needs and cost. We also added a volunteer section, because teens like us can help make these programs happen. Every program we confirmed ourselves says so on the card.
+
+Karate taught us to show up and respect every opponent on the mat. This app is our way of doing that outside the dojo.
 
 ## How to run it
 
