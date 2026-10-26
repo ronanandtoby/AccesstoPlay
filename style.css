@@ -1,0 +1,309 @@
+/* style.css
+   ------------------------------------------------------------
+   All the colors live here as "variables" so we can change the
+   whole look in one place. A second set switches on when the
+   phone or computer is in dark mode.
+
+   Layout idea: a bold mountain-blue header band, then filters
+   on top and result cards in a grid that becomes one column on phones.
+   ------------------------------------------------------------ */
+
+:root {
+  --bg: #f3f6f8;          /* page background: pale snow blue */
+  --surface: #ffffff;     /* cards */
+  --ink: #14232e;         /* main text */
+  --muted: #4b5d6a;       /* secondary text */
+  --line: #cfd9e0;        /* borders */
+  --band: #173a5e;        /* header band: mountain blue */
+  --band-ink: #ffffff;
+  --accent: #f2b632;      /* Colorado gold */
+  --accent-ink: #14232e;
+  --link: #1d5f9e;
+  --free: #1f7a4d;        /* green tag for free */
+  --low: #7a5a00;         /* brown-gold tag for low cost */
+  --paid: #4b5d6a;        /* grey-blue tag for fees */
+  --tag-bg: #e6eef4;
+
+  --font-display: "Lexend", "Atkinson Hyperlegible", system-ui, sans-serif;
+  --font-body: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1a22; --surface: #172631; --ink: #e8eef2; --muted: #a8b8c4;
+    --line: #2b3f4d; --band: #0b2440; --band-ink: #ffffff; --accent: #f2b632;
+    --accent-ink: #14232e; --link: #8cc4f5; --free: #6fd19f; --low: #f2c96b;
+    --paid: #a8b8c4; --tag-bg: #213441; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1a22; --surface: #172631; --ink: #e8eef2; --muted: #a8b8c4;
+  --line: #2b3f4d; --band: #0b2440; --band-ink: #ffffff; --accent: #f2b632;
+  --accent-ink: #14232e; --link: #8cc4f5; --free: #6fd19f; --low: #f2c96b;
+  --paid: #a8b8c4; --tag-bg: #213441; color-scheme: dark;
+}
+
+/* High contrast: pure black and white with strong borders.
+   Light version first, then a dark version for dark mode. */
+:root.high-contrast {
+  --bg: #ffffff; --surface: #ffffff; --ink: #000000; --muted: #000000;
+  --line: #000000; --band: #000000; --band-ink: #ffffff; --accent: #ffd200;
+  --accent-ink: #000000; --link: #0000c8; --free: #005a1e; --low: #5a3c00;
+  --paid: #000000; --tag-bg: #ffffff;
+}
+@media (prefers-color-scheme: dark) {
+  :root.high-contrast:not([data-theme="light"]) {
+    --bg: #000000; --surface: #000000; --ink: #ffffff; --muted: #ffffff;
+    --line: #ffffff; --band: #000000; --band-ink: #ffffff; --accent: #ffd200;
+    --accent-ink: #000000; --link: #9ad0ff; --free: #7dffb0; --low: #ffd27a;
+    --paid: #ffffff; --tag-bg: #000000;
+  }
+}
+:root.high-contrast[data-theme="dark"] {
+  --bg: #000000; --surface: #000000; --ink: #ffffff; --muted: #ffffff;
+  --line: #ffffff; --band: #000000; --band-ink: #ffffff; --accent: #ffd200;
+  --accent-ink: #000000; --link: #9ad0ff; --free: #7dffb0; --low: #ffd27a;
+  --paid: #ffffff; --tag-bg: #000000;
+}
+.high-contrast .card, .high-contrast .filters, .high-contrast .tag { border-width: 2px; }
+.high-contrast .tag { border: 1px solid var(--line); }
+
+* { box-sizing: border-box; }
+
+/* Larger text: every size on the page uses rem, which is based on
+   the <html> font size. Making it 125% makes everything bigger. */
+html { font-size: 100%; }
+html.big-text { font-size: 125%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;   /* a little bigger than normal, easier to read */
+  line-height: 1.55;
+}
+
+/* The side padding keeps text off the screen edges on phones. */
+.wrap {
+  max-width: 68rem;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+
+/* ---------- Header ---------- */
+.site-header {
+  background: var(--band);
+  color: var(--band-ink);
+  padding-block: 2.5rem 2rem;
+  border-bottom: 6px solid var(--accent);
+}
+.eyebrow {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+}
+h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 6vw, 3.6rem);
+  line-height: 1.05;
+  margin: 0.3rem 0 0.75rem;
+  text-wrap: balance;
+}
+.lede { margin: 0; max-width: 40rem; font-size: 1.15rem; }
+
+/* ---------- Tabs ---------- */
+.tabs { display: flex; gap: 0.5rem; margin-block: 1.5rem 1rem; flex-wrap: wrap; }
+.tabs button {
+  font: inherit;
+  font-weight: 700;
+  padding: 0.7rem 1.2rem;
+  border: 2px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  border-radius: 999px;
+  cursor: pointer;
+}
+.tabs button[aria-selected="true"] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+
+/* Big, obvious focus ring so keyboard users always know where they are. */
+:focus-visible { outline: 3px solid var(--link); outline-offset: 2px; }
+
+/* ---------- Filters ---------- */
+.filters {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  gap: 1rem 1.25rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 1.25rem;
+}
+.field { display: flex; flex-direction: column; gap: 0.35rem; min-width: 0; }
+.field > label, legend { font-weight: 700; }
+input[type="number"], select {
+  font: inherit;
+  padding: 0.6rem 0.7rem;
+  border: 2px solid var(--line);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--ink);
+  min-height: 2.9rem;   /* large tap target */
+}
+.needs {
+  grid-column: 1 / -1;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.needs legend { margin-bottom: 0.4rem; padding: 0; }
+.needs label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.85rem;
+  border: 2px solid var(--line);
+  border-radius: 999px;
+  cursor: pointer;
+}
+.needs label:has(input:checked) { border-color: var(--link); background: var(--tag-bg); }
+.needs input { width: 1.2rem; height: 1.2rem; accent-color: var(--link); }
+
+/* ---------- Results ---------- */
+.count { font-weight: 700; margin-block: 1.25rem 0.75rem; }
+.results {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+  gap: 1rem;
+}
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 1.1rem 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  min-width: 0;
+}
+.card p { margin: 0; }
+.card h3 { font-family: var(--font-display); font-size: 1.25rem; margin: 0.2rem 0 0; line-height: 1.2; }
+.card-top { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.org { color: var(--muted); font-size: 0.95rem; }
+.facts { font-weight: 700; }
+.sports { color: var(--muted); }
+.cost, .aid {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  border: 2px solid currentColor;
+}
+.cost-free { color: var(--free); }
+.cost-low { color: var(--low); }
+.cost-paid { color: var(--paid); }
+.cost-ask { color: var(--paid); border-style: dashed; }
+.aid { color: var(--link); }
+.tags { list-style: none; padding: 0; margin: 0.3rem 0 0; display: flex; flex-wrap: wrap; gap: 0.35rem; }
+.tag { background: var(--tag-bg); border-radius: 6px; padding: 0.15rem 0.5rem; font-size: 0.85rem; }
+.cost-note { font-size: 0.9rem; color: var(--muted); }
+.card-actions {
+  margin-top: auto;
+  padding-top: 0.6rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+}
+.visit { color: var(--link); font-weight: 700; }
+.save {
+  font: inherit;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 0.45rem 0.9rem;
+  min-height: 2.5rem;
+  border: 2px solid var(--link);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--link);
+  cursor: pointer;
+}
+.save[aria-pressed="true"] { background: var(--link); color: var(--surface); }
+.verified { font-size: 0.9rem; font-weight: 700; color: var(--free); }
+
+/* ---------- Display settings in the header ---------- */
+.display-controls { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.25rem; }
+.display-controls button {
+  font: inherit;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 0.45rem 0.9rem;
+  min-height: 2.5rem;
+  border: 2px solid var(--band-ink);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--band-ink);
+  cursor: pointer;
+}
+.display-controls button[aria-pressed="true"] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+.display-controls button[aria-pressed="true"]::before { content: "✓ "; }
+
+/* ---------- Questions to ask ---------- */
+.questions .intro { max-width: 44rem; margin-block: 0.5rem 1rem; }
+.question-groups {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  gap: 1rem;
+}
+.question-groups fieldset {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 1rem 1.2rem 1.1rem;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  min-width: 0;
+}
+.question-groups legend {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  padding: 0 0.3rem;
+}
+.question-groups label { display: flex; gap: 0.6rem; align-items: flex-start; cursor: pointer; }
+.question-groups input { width: 1.2rem; height: 1.2rem; margin-top: 0.2rem; flex-shrink: 0; accent-color: var(--link); }
+.question-groups label:has(input:checked) { color: var(--muted); text-decoration: line-through; }
+
+.notice {
+  margin-block: 2rem 3rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+  max-width: 44rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}
+
+.more-heading { font-family: var(--font-display); font-size: 1.25rem; margin: 2rem 0 0.5rem; }
+.more-links { margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.5rem; max-width: 44rem; }
+.more-links a { color: var(--link); font-weight: 700; }

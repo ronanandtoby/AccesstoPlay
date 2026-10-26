@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Access to Play</title>
+<!-- Fonts: Atkinson Hyperlegible was designed by the Braille Institute so letters
+     are easy to tell apart for readers with low vision. Lexend was designed to make reading easier. -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Lexend:wght@500;700&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <p class="eyebrow">Colorado adaptive sports finder</p>
+    <h1>Access to Play</h1>
+    <p class="lede">Find sports programs that fit your child's age, where you live, their accessibility needs, and your budget. Or find a way to help as a youth volunteer.</p>
+    <!-- Display settings: each button turns a setting on or off. -->
+    <div class="display-controls" aria-label="Display settings" role="group">
+      <button type="button" id="big-text-btn" aria-pressed="false">Larger text</button>
+      <button type="button" id="contrast-btn" aria-pressed="false">High contrast</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- Tabs let the family switch between the two halves of the app. -->
+  <div class="tabs" role="tablist" aria-label="Choose a section">
+    <button role="tab" data-tab="find" aria-selected="true">Find a sport</button>
+    <button role="tab" data-tab="saved" aria-selected="false">My list (<span id="saved-tab-count">0</span>)</button>
+    <button role="tab" data-tab="questions" aria-selected="false">Questions to ask</button>
+    <button role="tab" data-tab="volunteer" aria-selected="false">Volunteer</button>
+  </div>
+
+  <!-- ===== Section 1: Find a sport ===== -->
+  <section id="find" class="panel">
+    <form id="search-form" class="filters">
+      <div class="field">
+        <label for="age">Child's age</label>
+        <input id="age" type="number" min="1" max="99" inputmode="numeric" value="10">
+      </div>
+
+      <div class="field">
+        <label for="region">Where in Colorado?</label>
+        <select id="region">
+          <option value="any">Anywhere in Colorado</option>
+          <option value="Denver Metro" selected>Denver Metro</option>
+          <option value="Boulder County">Boulder County</option>
+          <option value="Mountains">Mountains</option>
+          <option value="Northern Colorado">Northern Colorado</option>
+          <option value="Colorado Springs">Colorado Springs</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="sport">Type of sport</label>
+        <select id="sport">
+          <option value="any">Any sport</option>
+          <option value="Team sports">Team sports (soccer, baseball, basketball, hockey)</option>
+          <option value="Martial arts">Martial arts</option>
+          <option value="Snow sports">Snow sports</option>
+          <option value="Water sports">Water sports (swimming, sailing, rafting)</option>
+          <option value="Outdoor adventure">Climbing and outdoor adventure</option>
+          <option value="Cycling">Cycling</option>
+          <option value="Horseback riding">Horseback riding</option>
+          <option value="Running & fitness">Running, dance and fitness</option>
+          <option value="Camps">Camps</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="cost">Budget</label>
+        <select id="cost">
+          <option value="any">Any cost</option>
+          <option value="affordable">Free, low cost, or financial aid</option>
+          <option value="free">Free only</option>
+        </select>
+      </div>
+
+      <fieldset class="field needs">
+        <legend>Needs the program must support</legend>
+        <label><input type="checkbox" name="need" value="mobility"> Mobility / wheelchair</label>
+        <label><input type="checkbox" name="need" value="intellectual"> Intellectual or developmental</label>
+        <label><input type="checkbox" name="need" value="autism"> Autism / sensory</label>
+        <label><input type="checkbox" name="need" value="vision"> Blind or low vision</label>
+        <label><input type="checkbox" name="need" value="hearing"> Deaf or hard of hearing</label>
+      </fieldset>
+    </form>
+
+    <!-- aria-live makes screen readers read the count out loud when it changes. -->
+    <p id="result-count" class="count" aria-live="polite"></p>
+    <div id="results" class="results"></div>
+  </section>
+
+  <!-- ===== Section 2: My list ===== -->
+  <section id="saved" class="panel" hidden>
+    <p id="saved-count" class="count" aria-live="polite"></p>
+    <div id="saved-results" class="results"></div>
+  </section>
+
+  <!-- ===== Section 3: Questions to ask ===== -->
+  <!-- This part is plain HTML with no JavaScript. The checkboxes let a
+       parent tick off each question while they're on the phone. -->
+  <section id="questions" class="panel questions" hidden>
+    <p class="intro">Many programs don't post every detail online. Use this list when you call or email a program. Tick off each question as you get an answer.</p>
+
+    <div class="question-groups">
+      <fieldset>
+        <legend>Getting started</legend>
+        <label><input type="checkbox"> Is there a free trial class, or can we come and watch first?</label>
+        <label><input type="checkbox"> What ages and skill levels is the program for?</label>
+        <label><input type="checkbox"> When does registration open, and does it fill up fast?</label>
+        <label><input type="checkbox"> What days and times does it meet, and for how many weeks?</label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Cost</legend>
+        <label><input type="checkbox"> What is the total cost, including equipment, uniforms and travel?</label>
+        <label><input type="checkbox"> Do you offer scholarships, payment plans or a sliding scale?</label>
+        <label><input type="checkbox"> Do you accept Medicaid waivers or other third-party payment?</label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Accessibility</legend>
+        <label><input type="checkbox"> Are the building, field, restrooms and parking wheelchair accessible?</label>
+        <label><input type="checkbox"> Do you provide adaptive equipment, like sport chairs or sit-skis?</label>
+        <label><input type="checkbox"> Are coaches trained to work with my child's disability?</label>
+        <label><input type="checkbox"> How many kids does each coach or volunteer work with?</label>
+        <label><input type="checkbox"> Is there a quiet space for sensory breaks?</label>
+        <label><input type="checkbox"> Can a parent, aide or support person stay with my child?</label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Safety and communication</legend>
+        <label><input type="checkbox"> How do you handle medical needs and medication?</label>
+        <label><input type="checkbox"> What happens if my child has a hard day or needs to leave early?</label>
+        <label><input type="checkbox"> How will you tell me how my child is doing?</label>
+      </fieldset>
+    </div>
+
+    <h2 class="more-heading">More places to look</h2>
+    <ul class="more-links">
+      <li><a href="https://www.usopc.org/paralympic-sport-development/getting-started/find-a-club/colorado" target="_blank" rel="noopener">U.S. Paralympics: Find a Club in Colorado</a>. The national list of adaptive sports clubs in the state.</li>
+      <li><a href="https://www.colorado.com/articles/adventurous-adaptive-summer-sports-colorado" target="_blank" rel="noopener">Colorado.com: Adaptive summer sports</a>. The state tourism guide to adaptive outdoor programs.</li>
+    </ul>
+  </section>
+
+  <!-- ===== Section 4: Volunteer ===== -->
+  <section id="volunteer" class="panel" hidden>
+    <form id="vol-form" class="filters">
+      <div class="field">
+        <label for="vol-age">Your age</label>
+        <input id="vol-age" type="number" min="10" max="99" inputmode="numeric" value="16">
+      </div>
+      <div class="field">
+        <label for="vol-region">Where in Colorado?</label>
+        <select id="vol-region">
+          <option value="any">Anywhere in Colorado</option>
+          <option value="Denver Metro" selected>Denver Metro</option>
+          <option value="Boulder County">Boulder County</option>
+          <option value="Mountains">Mountains</option>
+          <option value="Northern Colorado">Northern Colorado</option>
+          <option value="Colorado Springs">Colorado Springs</option>
+        </select>
+      </div>
+    </form>
+
+    <p id="vol-count" class="count" aria-live="polite"></p>
+    <div id="vol-results" class="results"></div>
+  </section>
+
+  <p class="notice">Programs change their ages, prices and schedules. Always confirm details with the program before signing up. Information last checked October 2026. <span id="verified-count"></span></p>
+</main>
+
+<!-- Load the data first, then the code that uses it. -->
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
