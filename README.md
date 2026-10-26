@@ -2,7 +2,7 @@
 
 A web app that helps families in Colorado find adaptive sports programs by **age, location, type of sport, accessibility needs, and cost**, and helps teens find **volunteer opportunities** with those programs.
 
-**Try it:** https://ronanandtoby.github.io/access-to-play/
+**Try it:** https://README.github.io/access-to-play/
 
 **Built by:** [names, school, grade] for the 2026 Congressional App Challenge, [congressional district].
 
