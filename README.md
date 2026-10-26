@@ -108,7 +108,7 @@ On GitHub, open `data.js`, click the pencil icon, make the change, and click **C
 
 We used Claude (by Anthropic) as a coding assistant. It helped research Colorado adaptive sports programs, wrote the first version of the HTML, CSS and JavaScript, and added the comments that explain each part. We asked it to keep the code simple, with no frameworks, so we could understand every line.
 
-What we did ourselves: _(list only what's true, for example: came up with the idea, chose the filters, tested the app on our phones and with only a keyboard, called programs to confirm their details, added or fixed programs, recorded the demo)._
+What we did ourselves: we came up with the idea, chose the filters, tested the app on our phones and with only a keyboard, called programs to confirm their details, added or fixed programs.
 
 ## License
 
